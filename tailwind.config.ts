@@ -8,7 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
+      colors: { 
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
