@@ -1,3 +1,8 @@
+"use client";
+
+import { LayoutGridIcon, Package, ShoppingBasket } from "lucide-react";
+import SidebarButton from "./ui/sidebar-button";
+
 const SideBar = () => {
   return (
     <>
@@ -8,9 +13,18 @@ const SideBar = () => {
         </div>
         {/* Botões */}
         <div className="flex flex-col gap-2 p-2">
-          <button className="px-6 py-3">Dashboard</button>
-          <button className="px-6 py-3">Produtos</button>
-          <button className="px-6 py-3">Vendas</button>
+          <SidebarButton href="/">
+            <LayoutGridIcon size={20} />
+            Dashboard
+          </SidebarButton>
+          <SidebarButton href="/products">
+            <Package size={20} />
+            Produtos
+          </SidebarButton>
+          <SidebarButton href="/sales">
+            <ShoppingBasket size={20} />
+            Vendas
+          </SidebarButton>
         </div>
       </div>
     </>
