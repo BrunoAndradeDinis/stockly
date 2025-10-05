@@ -1,11 +1,11 @@
 import { PlusIcon } from "lucide-react";
 import { Button } from "../_components/ui/button";
-import { db } from "../_lib/prisma";
 import { DataTable } from "../_components/ui/data-table";
 import { productsTableColumns } from "./_components/table-columns";
+import { getProduct } from "../_data-access/product/get-product";
 
 const Produtos = async () => {
-  const products = await db.product.findMany({});
+  const products = await getProduct(); // chamar o banco num component não é o ideal, misturar o código com a conexão com o banco
   return (
     <div className="mx-8 my-8 w-full rounded-lg bg-white space-y-8 p-8">
       <div className="flex w-full items-center justify-between">

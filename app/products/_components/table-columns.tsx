@@ -1,12 +1,12 @@
 "use client";
 
 import { Badge } from "@/app/_components/ui/badge";
-import { Product } from "@/app/generated/prisma";
+import { Product } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { CircleIcon } from "lucide-react";
 
-const getStatusLabel = (status: string) => {
-  if (status === "IN_STOCK") {
+const getStatusLabel = (stock: number) => {
+  if (stock > 0) {
     return "Em estoque";
   }
   return "Fora de estoque";
@@ -20,17 +20,24 @@ export const productsTableColumns: ColumnDef<Product>[] = [
   {
     accessorKey: "price",
     header: "Valor unitário",
+    cell: (row) => {
+      const price = row.getValue() as number;
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(price);
+    },
   },
   {
     accessorKey: "stock",
     header: "Estoque",
   },
   {
-    accessorKey: "status",
+    accessorKey: "stock",
     header: "Status",
     cell: (row) => {
       const product = row.row.original;
-      const label = getStatusLabel(product.status);
+      const label = getStatusLabel(product.stock);
 
       return (
         <Badge
