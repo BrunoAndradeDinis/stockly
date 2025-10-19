@@ -1,7 +1,7 @@
 import { DataTable } from "../_components/ui/data-table";
 import { productsTableColumns } from "./_components/table-columns";
 import { cachedGetProducts } from "../_data-access/product/get-product";
-import AddProductButton from "./_components/add-product-button";
+import CreateProductButton from "./_components/create-product-button";
 
 // import ProductList from "./_components/product-list";
 
@@ -45,7 +45,7 @@ const Produtos = async () => {
           Novo produto
           <Dialog></Dialog>
         </Button> */}
-        <AddProductButton />
+        <CreateProductButton />
       </div>
       {/* <ProductList></ProductList> */}
       <DataTable columns={productsTableColumns} data={products} />

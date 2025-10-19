@@ -5,7 +5,7 @@ import { Product } from "@prisma/client";
 import { cache } from "react"; // esse cache aqui ele memoiza qualquer função, evitando de fazer uma segunda chamada por exemplo.
 
 export const getProduct = async (): Promise<Product[]> => {
-  console.log("Fetching products...")
+  console.log("Fazendo o Fetching de produtos...")
   return db.product.findMany({});
 };
 
