@@ -3,7 +3,22 @@
 import { Badge } from "@/app/_components/ui/badge";
 import { Product } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { CircleIcon } from "lucide-react";
+import {
+  CircleIcon,
+  ClipboardCopyIcon,
+  EditIcon,
+  MoreHorizontalIcon,
+  TrashIcon,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/app/_components/ui/dropdown-menu";
+import { Button } from "@/app/_components/ui/button";
 
 const getStatusLabel = (stock: number) => {
   if (stock > 0) {
@@ -50,6 +65,46 @@ export const productsTableColumns: ColumnDef<Product>[] = [
           />
           {label}
         </Badge>
+      );
+    },
+  },
+  {
+    accessorKey: "actions",
+    header: "Ações",
+    cell: (row) => {
+      const product = row.row.original;
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">
+              <MoreHorizontalIcon size={16} />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="gap-1.5"
+              onClick={() => navigator.clipboard.writeText(product.id)}
+            >
+              <ClipboardCopyIcon size={16} />
+              Copiar ID
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-1.5"
+              onClick={() => navigator.clipboard.writeText(product.id)}
+            >
+              <EditIcon size={16} />
+              Editar
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-1.5"
+              onClick={() => navigator.clipboard.writeText(product.id)}
+            >
+              <TrashIcon size={16} />
+              Deletar
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },
