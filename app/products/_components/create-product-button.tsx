@@ -1,57 +1,15 @@
 "use client";
 
-import { Loader2Icon, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { Button } from "../../_components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "../../_components/ui/dialog";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/app/_components/ui/form";
-import { NumericFormat } from "react-number-format";
-import { Input } from "@/app/_components/ui/input";
-import { createProduct } from "@/app/_actions/create-product";
-import {
-  createProductSchema,
-  type CreateProductSchema,
-} from "@/app/_actions/create-product/schema";
+import { Dialog, DialogTrigger } from "../../_components/ui/dialog";
+
 import { useState } from "react";
+import UpsertProductDialogContent from "./upsert-dialog-content";
 
 const CreateProductButton = () => {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
-  const form = useForm<CreateProductSchema>({
-    shouldUnregister: true,
-    resolver: zodResolver(createProductSchema),
-    defaultValues: {
-      name: "",
-      price: 0,
-      stock: 1,
-    },
-  });
 
-  const onSubmit = async (data: CreateProductSchema) => {
-    // console.log({ data });
-    try {
-      await createProduct(data);
-      setDialogIsOpen(false);
-    } catch (error) {
-      console.log("Deu erro: ", error);
-    }
-  };
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
@@ -60,7 +18,8 @@ const CreateProductButton = () => {
           Novo produto
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <UpsertProductDialogContent onSuccess={() => setDialogIsOpen(false)} />
+      {/* <DialogContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
@@ -145,7 +104,7 @@ const CreateProductButton = () => {
             </DialogFooter>
           </form>
         </Form>
-      </DialogContent>
+      </DialogContent> */}
     </Dialog>
   );
 };
