@@ -22,35 +22,39 @@ import {
 import { NumericFormat } from "react-number-format";
 import { Input } from "@/app/_components/ui/input";
 import {
-  createProductSchema,
-  type CreateProductSchema,
-} from "@/app/_actions/create-product/schema";
+  upsertProductSchema,
+  type UpsertProductSchema,
+} from "@/app/_actions/upsert-product/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createProduct } from "@/app/_actions/create-product";
+import { createProduct } from "@/app/_actions/upsert-product";
 // import { useState } from "react";
 
 interface UpsertProductDialogContentProps {
+  defaultValues?: UpsertProductSchema;
   onSuccess?: () => void;
 }
 
 const UpsertProductDialogContent = ({
+  defaultValues,
   onSuccess,
 }: UpsertProductDialogContentProps) => {
   // const [dialogIsOpen, setDialogIsOpen] = useState(false);
-  const form = useForm<CreateProductSchema>({
+  const form = useForm<UpsertProductSchema>({
     shouldUnregister: true,
-    resolver: zodResolver(createProductSchema),
-    defaultValues: {
+    resolver: zodResolver(upsertProductSchema),
+    defaultValues: defaultValues ?? {
       name: "",
       price: 0,
       stock: 1,
     },
   });
 
-  const onSubmit = async (data: CreateProductSchema) => {
+  const isEditing = !!defaultValues;
+
+  const onSubmit = async (data: UpsertProductSchema) => {
     try {
-      await createProduct(data);
+      await createProduct({ ...data, id: defaultValues?.id });
       onSuccess?.();
     } catch (error) {
       console.log("Deu erro: ", error);
@@ -61,7 +65,7 @@ const UpsertProductDialogContent = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <DialogHeader>
-            <DialogTitle>Criar produto</DialogTitle>
+            <DialogTitle>{isEditing ? "Editar " : "Criar"} produto</DialogTitle>
             <DialogDescription>Insira as informações abaixo</DialogDescription>
           </DialogHeader>
           <FormField
