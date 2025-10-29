@@ -49,19 +49,13 @@ const ProductTableDropdownMenu = ({
               Copiar ID
             </DropdownMenuItem>
             <DialogTrigger asChild>
-              <DropdownMenuItem
-                className="gap-1.5"
-                onClick={() => navigator.clipboard.writeText(product.id)}
-              >
+              <DropdownMenuItem className="gap-1.5">
                 <EditIcon size={16} />
                 Editar
               </DropdownMenuItem>
             </DialogTrigger>
             <AlertDialogTrigger>
-              <DropdownMenuItem
-                className="gap-1.5"
-                onClick={() => navigator.clipboard.writeText(product.id)}
-              >
+              <DropdownMenuItem className="gap-1.5">
                 <TrashIcon size={16} />
                 Deletar
               </DropdownMenuItem>
