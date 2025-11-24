@@ -38,6 +38,8 @@ import { z } from "zod";
 import SalesTableDropdownMenu from "./table-dropdown-menu";
 import { createSale } from "@/app/_actions/sale/create-sale";
 import { toast } from "sonner";
+import { useAction } from "next-safe-action/hooks";
+import { flattenValidationErrors } from "next-safe-action";
 
 const formSchema = z.object({
   productId: z.string().uuid({
@@ -69,6 +71,18 @@ const UpsertSheetContent = ({
   const [selectedProducts, setSelectedProduct] = useState<SelectedProduct[]>(
     [],
   );
+
+  const { execute: executeCreateSale } = useAction(createSale, {
+    onError: ({ error: { validationErrors, serverError } }) => {
+      const flattenedErrors = flattenValidationErrors(validationErrors);
+      toast.error(serverError ?? flattenedErrors.formErrors[0]);
+    },
+    onSuccess: () => {
+      toast.success("Venda realizada com sucesso!");
+      setSheetIsOpen(false);
+    },
+  });
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,6 +90,7 @@ const UpsertSheetContent = ({
       quantity: 1,
     },
   });
+
   const onSubmit = (data: FormSchema) => {
     const selectedProduct = products.find(
       (product) => product.id === data.productId,
@@ -140,19 +155,26 @@ const UpsertSheetContent = ({
   };
 
   const onSubmitSale = async () => {
-    try {
-      await createSale({
-        products: selectedProducts.map((product) => ({
-          productId: product.id,
-          quantity: product.quantity,
-        })),
-      });
-      toast.success("Venda realizada com sucesso!");
-      setSheetIsOpen(false);
-    } catch (error) {
-      toast.error("Erro ao realizar venda. Tente novamente.");
-      console.log(error);
-    }
+    executeCreateSale({
+      products: selectedProducts.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+      })),
+    });
+
+    // try {
+    //   await createSale({
+    //     products: selectedProducts.map((product) => ({
+    //       productId: product.id,
+    //       quantity: product.quantity,
+    //     })),
+    //   });
+    //   toast.success("Venda realizada com sucesso!");
+    //   setSheetIsOpen(false);
+    // } catch (error) {
+    //   toast.error("Erro ao realizar venda. Tente novamente.");
+    //   console.log(error);
+    // }
   };
   return (
     <SheetContent className="!max-w-[700px]">
