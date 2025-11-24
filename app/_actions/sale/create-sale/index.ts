@@ -27,7 +27,7 @@ export const createSale = actionClient
             _errors: ["Produto não encontrado!"],
           });
         }
-        const productOutOfStock = productFromDb.stock > product.quantity;
+        const productOutOfStock = productFromDb.stock < product.quantity;
 
         if (productOutOfStock) {
           returnValidationErrors(createSaleSchema, {

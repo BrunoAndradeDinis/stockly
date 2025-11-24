@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   upsertProductSchema,
   type UpsertProductSchema,
-} from "@/app/_actions/upsert-product/schema";
+} from "@/app/_actions/product/upsert-product/schema";
 
 export const createProduct = async (data: UpsertProductSchema) => {
   upsertProductSchema.parse(data);

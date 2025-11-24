@@ -24,10 +24,10 @@ import { Input } from "@/app/_components/ui/input";
 import {
   upsertProductSchema,
   type UpsertProductSchema,
-} from "@/app/_actions/upsert-product/schema";
+} from "@/app/_actions/product/upsert-product/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createProduct } from "@/app/_actions/upsert-product";
+import { createProduct } from "@/app/_actions/product/upsert-product";
 // import { useState } from "react";
 
 interface UpsertProductDialogContentProps {
