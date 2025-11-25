@@ -11,7 +11,7 @@ const createPrismaClient = () => {
 };
 
 let prisma: ReturnType<typeof createPrismaClient>;
-if (process.env.NODE_ENV === "production") {
+if (process.env.NOVE_ENV === "production") {
   prisma = createPrismaClient();
 } else {
   if (!global.cachedPrisma) {
