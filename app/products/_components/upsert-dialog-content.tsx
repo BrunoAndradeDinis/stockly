@@ -27,7 +27,8 @@ import {
 } from "@/app/_actions/product/upsert-product/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createProduct } from "@/app/_actions/product/upsert-product";
+import { upsertProduct } from "@/app/_actions/product/upsert-product";
+import { useAction } from "next-safe-action/hooks";
 // import { useState } from "react";
 
 interface UpsertProductDialogContentProps {
@@ -39,7 +40,19 @@ const UpsertProductDialogContent = ({
   defaultValues,
   onSuccess,
 }: UpsertProductDialogContentProps) => {
-  // const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const isEditing = !!defaultValues;
+
+  const { execute: executeUpsertProduct } = useAction(upsertProduct, {
+    onSuccess: () => {
+      onSuccess?.();
+      toast.success(
+        `Produto ${isEditing ? "salvo" : "adicionado"} com sucesso!`,
+      );
+    },
+    onError: () => {
+      toast.error("Ocorreu um erro ao adicionar o produto.");
+    },
+  });
   const form = useForm<UpsertProductSchema>({
     shouldUnregister: true,
     resolver: zodResolver(upsertProductSchema),
@@ -50,16 +63,10 @@ const UpsertProductDialogContent = ({
     },
   });
 
-  const isEditing = !!defaultValues;
-
-  const onSubmit = async (data: UpsertProductSchema) => {
-    try {
-      await createProduct({ ...data, id: defaultValues?.id });
-      onSuccess?.();
-    } catch (error) {
-      console.log("Deu erro: ", error);
-    }
+  const onSubmit = (data: UpsertProductSchema) => {
+    executeUpsertProduct({ ...data, id: defaultValues?.id });
   };
+
   return (
     <DialogContent>
       <Form {...form}>
