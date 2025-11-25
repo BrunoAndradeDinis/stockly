@@ -1,6 +1,9 @@
 import { getProducts } from "../_data-access/product/get-product";
 import { ComboboxOption } from "../_components/ui/combobox";
 import CreateSaleButton from "./_components/create-sale-button";
+import { DataTable } from "../_components/ui/data-table";
+import { saleTableColumns } from "./_components/table-columns";
+import { getSales } from "../_data-access/sales/get-sales";
 
 const SalesPage = async () => {
   const products = await getProducts();
@@ -8,6 +11,8 @@ const SalesPage = async () => {
     label: product.name,
     value: product.id,
   }));
+
+  const sales = await getSales();
   return (
     <div className="mx-8 my-8 w-full space-y-8 rounded-lg bg-white p-8">
       <div className="flex w-full items-center justify-between">
@@ -20,6 +25,7 @@ const SalesPage = async () => {
 
         <CreateSaleButton products={products} productOptions={productOptions} />
       </div>
+      <DataTable columns={saleTableColumns} data={sales} />
     </div>
   );
 };
