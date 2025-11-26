@@ -18,7 +18,7 @@ interface DeleteProductDialogContentProps {
 const DeleteProductDialogContent = ({
   productId,
 }: DeleteProductDialogContentProps) => {
-  const { execute: executeDeleteProduct } = useAction(deleteProduct, {
+   const { execute: executeDeleteProduct } = useAction(deleteProduct, {
     onError: () => {
       toast.error("Ocorreu um erro ao excluir o produto.");
     },
@@ -28,6 +28,7 @@ const DeleteProductDialogContent = ({
   });
 
   const handleContinueclick = () => executeDeleteProduct({ id: productId });
+
   return (
     <AlertDialogContent>
       <AlertDialogHeader>
