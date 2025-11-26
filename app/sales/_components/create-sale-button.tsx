@@ -18,8 +18,8 @@ const CreateSaleButton = (props: CreateSaleButtonProps) => {
   return (
     <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
       <SheetTrigger asChild>
-        <Button>
-          <PlusIcon size={16} />
+        <Button className="gap-2">
+          <PlusIcon size={20} />
           Nova venda
         </Button>
       </SheetTrigger>

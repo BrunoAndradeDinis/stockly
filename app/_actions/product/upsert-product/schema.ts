@@ -8,15 +8,9 @@ export const upsertProductSchema = z.object({
   price: z.number().min(0.01, {
     message: "O preço do produto é obrigatório!",
   }),
-  stock: z.coerce
-    .number()
-    .positive({
-      message: "A quantidade em estoque tem que ser positivo",
-    })
-    .int()
-    .min(0, {
-      message: "O estoque é obrigatório!",
-    }),
+  stock: z.coerce.number().int().min(0, {
+    message: "O estoque é obrigatório!",
+  }),
 });
 
 export type UpsertProductSchema = z.infer<typeof upsertProductSchema>;
