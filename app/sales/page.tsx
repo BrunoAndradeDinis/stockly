@@ -4,6 +4,12 @@ import UpsertSaleButton from "./_components/create-sale-button";
 import { DataTable } from "../_components/ui/data-table";
 import { saleTableColumns } from "./_components/table-columns";
 import { getSales } from "../_data-access/sales/get-sales";
+import Header, {
+  HeaderLeft,
+  HeaderSubtitle,
+  HeaderTitle,
+  HeaderRight,
+} from "../_components/header";
 
 const SalesPage = async () => {
   const sales = await getSales();
@@ -21,17 +27,19 @@ const SalesPage = async () => {
 
   return (
     <div className="mx-8 my-8 w-full space-y-8 rounded-lg bg-white p-8">
-      <div className="flex w-full items-center justify-between">
-        <div className="space-y-1">
-          <span className="text-xs font-semibold text-slate-500">
-            Gestão de vendas
-          </span>
-          <h2 className="text-xl font-semibold">Vendas</h2>
-        </div>
-
-        <UpsertSaleButton products={products} productOptions={productOptions} />
-      </div>
-      <DataTable columns={saleTableColumns} data={tableData} />
+      <Header>
+        <HeaderLeft>
+          <HeaderSubtitle>Gestão de vendas</HeaderSubtitle>
+          <HeaderTitle>Vendas</HeaderTitle>
+        </HeaderLeft>
+        <HeaderRight>
+          <UpsertSaleButton
+            products={products}
+            productOptions={productOptions}
+          />
+        </HeaderRight>
+      </Header>
+        <DataTable columns={saleTableColumns} data={tableData} />
     </div>
   );
 };

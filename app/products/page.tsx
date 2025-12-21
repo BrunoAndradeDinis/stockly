@@ -2,6 +2,12 @@ import { DataTable } from "../_components/ui/data-table";
 import { productsTableColumns } from "./_components/table-columns";
 import { cachedGetProducts } from "../_data-access/product/get-product";
 import CreateProductButton from "./_components/create-product-button";
+import Header, {
+  HeaderLeft,
+  HeaderSubtitle,
+  HeaderTitle,
+  HeaderRight,
+} from "../_components/header";
 
 // import ProductList from "./_components/product-list";
 
@@ -33,23 +39,42 @@ const Produtos = async () => {
   // const { products, randomNumber } = await dataObject.json();
   return (
     <div className="mx-8 my-8 w-full space-y-8 rounded-lg bg-white p-8">
-      <div className="flex w-full items-center justify-between">
-        <div className="space-y-1">
-          <span className="text-xs font-semibold text-slate-500">
-            Gestão de produtos
-          </span>
-          <h2 className="text-xl font-semibold">Produtos</h2>
-        </div>
-        {/* <Button>
-          <PlusIcon size={20} />
-          Novo produto
-          <Dialog></Dialog>
-        </Button> */}
-        <CreateProductButton />
-      </div>
-      {/* <ProductList></ProductList> */}
+      <Header>
+        <HeaderLeft>
+          <HeaderSubtitle>Gestão de produtos</HeaderSubtitle>
+          <HeaderTitle>Produtos</HeaderTitle>
+        </HeaderLeft>
+        <HeaderRight>
+          <CreateProductButton />
+        </HeaderRight>
+      </Header>
       <DataTable columns={productsTableColumns} data={products} />
     </div>
+    // <Header
+    //   title="Produtos"
+    //   subtitle="Gestão de produtos"
+    //   rightButton={<CreateProductButton />}
+    // >
+    //   <DataTable columns={productsTableColumns} data={products} />
+    // </Header>
+    // <div className="mx-8 my-8 w-full space-y-8 rounded-lg bg-white p-8">
+    //   <div className="flex w-full items-center justify-between">
+    //     <div className="space-y-1">
+    //       <span className="text-xs font-semibold text-slate-500">
+    //         Gestão de produtos
+    //       </span>
+    //       <h2 className="text-xl font-semibold">Produtos</h2>
+    //     </div>
+    //     {/* <Button>
+    //       <PlusIcon size={20} />
+    //       Novo produto
+    //       <Dialog></Dialog>
+    //     </Button> */}
+    //     <CreateProductButton />
+    //   </div>
+    //   {/* <ProductList></ProductList> */}
+    //   <DataTable columns={productsTableColumns} data={products} />
+    // </div>
   );
 };
 
