@@ -22,6 +22,5 @@ export const upsertProduct = actionClient
         stock: data.stock,
       },
     });
-    revalidatePath("/products");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
   });

@@ -79,9 +79,7 @@ export const upsertSale = actionClient
         });
       }
     });
-    revalidatePath("/sales");
-    revalidatePath("/products");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
   });
 
 // export const upsertSale = async (data: UpsertSaleSchema) => {
