@@ -1,34 +1,29 @@
-"use client";
-
-import { LayoutGridIcon, Package, ShoppingBasket } from "lucide-react";
+import { LayoutGridIcon, PackageIcon, ShoppingBasketIcon } from "lucide-react";
 import SidebarButton from "./ui/sidebar-button";
 
-const SideBar = () => {
+const Sidebar = () => {
   return (
-    <>
-      <div className="w-64 bg-white">
-        {/* Imagem */}
-        <div className="px-8 py-6">
-          <h1 className="text-2xl font-bold">Stockly</h1>
-        </div>
-        {/* Botões */}
-        <div className="flex flex-col gap-2 p-2">
-          <SidebarButton href="/">
-            <LayoutGridIcon size={20} />
-            Dashboard
-          </SidebarButton>
-          <SidebarButton href="/products">
-            <Package size={20} />
-            Produtos
-          </SidebarButton>
-          <SidebarButton href="/sales">
-            <ShoppingBasket size={20} />
-            Vendas
-          </SidebarButton>
-        </div>
+    <div className="w-full h-full bg-white border-r">
+      {/* imagem */}
+      <div className="px-8 py-6">
+        <h1 className="font-bold text-2xl">STOCKLY</h1>
       </div>
-    </>
+      {/* botões */}
+      <div className="flex flex-col gap-2 p-2">
+        <SidebarButton href="/">
+          <LayoutGridIcon size={20} />
+          Dashboard
+        </SidebarButton>
+        <SidebarButton href="/products">
+          <PackageIcon size={20} />
+          Produtos
+        </SidebarButton>
+        <SidebarButton href="/sales">
+          <ShoppingBasketIcon size={20} />
+          Vendas
+        </SidebarButton>
+      </div>
+    </div>
   );
 };
-
-export default SideBar;
+export default Sidebar;

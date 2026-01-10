@@ -38,10 +38,10 @@ const Produtos = async () => {
   // ).json();
   // const { products, randomNumber } = await dataObject.json();
   return (
-    <div className="mx-8 my-8 w-full space-y-8 rounded-lg bg-white p-8">
+    <div className="m-4 space-y-8 rounded-lg bg-white p-4 overflow-auto md:m-8 md:p-8">
       <Header>
         <HeaderLeft>
-          <HeaderSubtitle>Gestão de produtos</HeaderSubtitle>
+          <HeaderSubtitle>Gestão de Produtos</HeaderSubtitle>
           <HeaderTitle>Produtos</HeaderTitle>
         </HeaderLeft>
         <HeaderRight>

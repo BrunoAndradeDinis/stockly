@@ -26,10 +26,10 @@ const SalesPage = async () => {
   }));
 
   return (
-    <div className="mx-8 my-8 w-full space-y-8 rounded-lg bg-white p-8">
+    <div className="m-4 space-y-8 rounded-lg bg-white p-4 overflow-auto md:m-8 md:p-8">
       <Header>
         <HeaderLeft>
-          <HeaderSubtitle>Gestão de vendas</HeaderSubtitle>
+          <HeaderSubtitle>Gestão de Vendas</HeaderSubtitle>
           <HeaderTitle>Vendas</HeaderTitle>
         </HeaderLeft>
         <HeaderRight>
@@ -39,7 +39,7 @@ const SalesPage = async () => {
           />
         </HeaderRight>
       </Header>
-        <DataTable columns={saleTableColumns} data={tableData} />
+      <DataTable columns={saleTableColumns} data={tableData} />
     </div>
   );
 };
