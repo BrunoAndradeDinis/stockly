@@ -56,7 +56,8 @@ const UpsertProductDialogContent = ({
   });
   const form = useForm<UpsertProductSchema>({
     shouldUnregister: true,
-    resolver: zodResolver(upsertProductSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(upsertProductSchema) as any,
     defaultValues: defaultValues ?? {
       name: "",
       price: 0,

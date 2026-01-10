@@ -4,7 +4,8 @@ import UpsertSaleButton from "./_components/create-sale-button";
 import { DataTable } from "../_components/ui/data-table";
 import { saleTableColumns } from "./_components/table-columns";
 import { getSales } from "../_data-access/sales/get-sales";
-import Header, {
+import {
+  Header,
   HeaderLeft,
   HeaderSubtitle,
   HeaderTitle,

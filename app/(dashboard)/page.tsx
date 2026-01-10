@@ -18,7 +18,11 @@ import {
 } from "./_components/summary-card";
 import { getDashboardData } from "../_data-access/dashboard/get-dashboard";
 import { formatCurrency } from "../_helpers/currency";
-import RevenueChart from "./_components/revenue-chart";
+import dynamic from "next/dynamic";
+
+const RevenueChart = dynamic(() => import("./_components/revenue-chart"), {
+  ssr: false,
+});
 
 const Home = async () => {
   const {

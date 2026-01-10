@@ -87,7 +87,8 @@ const UpsertSheetContent = ({
   });
 
   const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(formSchema) as any,
     defaultValues: {
       productId: "",
       quantity: 1,
