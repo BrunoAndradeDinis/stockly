@@ -1,6 +1,6 @@
 import { DataTable } from "../_components/ui/data-table";
 import { productsTableColumns } from "./_components/table-columns";
-import { cachedGetProducts } from "../_data-access/product/get-product";
+import { cachedGetProducts } from "../_data-access/product/get-products";
 import CreateProductButton from "./_components/create-product-button";
 import {
   Header,

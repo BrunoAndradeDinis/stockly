@@ -34,7 +34,7 @@ import { toast } from "sonner";
 import UpsertSheetContent from "./upsert-sheet-content";
 import { useState } from "react";
 import { ComboboxOption } from "@/app/_components/ui/combobox";
-import { ProductsDTO } from "@/app/_data-access/product/get-product";
+import { ProductsDTO } from "@/app/_data-access/product/get-products";
 import { SalesDTO } from "@/app/_data-access/sales/get-sales";
 
 interface SalesTableDropdownMenuProps {

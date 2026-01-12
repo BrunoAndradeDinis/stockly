@@ -4,7 +4,7 @@ import { Button } from "@/app/_components/ui/button";
 import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet";
 import { PlusIcon } from "lucide-react";
 import UpsertSheetContent from "./upsert-sheet-content";
-import { ProductsDTO } from "@/app/_data-access/product/get-product";
+import { ProductsDTO } from "@/app/_data-access/product/get-products";
 import { ComboboxOption } from "@/app/_components/ui/combobox";
 import { useState } from "react";
 

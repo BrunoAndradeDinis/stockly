@@ -4,8 +4,10 @@ import { Product } from "@prisma/client";
 // import { unstable_cache } from "next/cache";
 import { cache } from "react"; // esse cache aqui ele memoiza qualquer função, evitando de fazer uma segunda chamada por exemplo.
 
+export type ProductStatusDto = "IN_STOCK" | "OUT_OF_STOCK";
+
 export interface ProductsDTO extends Product {
-  status: "IN_STOCK" | "OUT_OF_STOCK";
+   status: ProductStatusDto;
 }
 
 export const getProducts = async (): Promise<ProductsDTO[]> => {

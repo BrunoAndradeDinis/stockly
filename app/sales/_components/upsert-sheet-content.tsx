@@ -39,7 +39,7 @@ import { upsertSale } from "@/app/_actions/sale/upsert-sale";
 import { toast } from "sonner";
 import { useAction } from "next-safe-action/hooks";
 import { flattenValidationErrors } from "next-safe-action";
-import { ProductsDTO } from "@/app/_data-access/product/get-product";
+import { ProductsDTO } from "@/app/_data-access/product/get-products";
 
 const formSchema = z.object({
   productId: z.string().uuid({

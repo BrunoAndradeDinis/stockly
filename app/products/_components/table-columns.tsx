@@ -1,20 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { Badge } from "@/app/_components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
-import { CircleIcon } from "lucide-react";
-
 import ProductTableDropdownMenu from "./table-dropdown-menu";
-import { ProductsDTO } from "@/app/_data-access/product/get-product";
-// import { Dialog } from "@/app/_components/ui/dialog";
-
-const getStatusLabel = (stock: number) => {
-  if (stock > 0) {
-    return "Em estoque";
-  }
-  return "Fora de estoque";
-};
+import { ProductsDTO } from "@/app/_data-access/product/get-products";
+import ProductStatusBadge from "@/app/_components/product-status-badge";
 
 export const productsTableColumns: ColumnDef<ProductsDTO>[] = [
   {
@@ -24,12 +14,12 @@ export const productsTableColumns: ColumnDef<ProductsDTO>[] = [
   {
     accessorKey: "price",
     header: "Valor unitário",
-    cell: (row) => {
-      const price = row.getValue() as number;
+    cell: ({row: {original: product}}) => {
+      const price = product.price;
       return new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
-      }).format(price);
+      }).format(Number(price));
     },
   },
   {
@@ -37,29 +27,15 @@ export const productsTableColumns: ColumnDef<ProductsDTO>[] = [
     header: "Estoque",
   },
   {
-    accessorKey: "stock",
+    accessorKey: "status",
     header: "Status",
-    cell: (row) => {
-      const product = row.row.original;
-      const label = getStatusLabel(product.stock);
-
-      return (
-        <Badge
-          variant={label === "Em estoque" ? "default" : "destructive"}
-          className="gap-1"
-        >
-          <CircleIcon
-            className={`${label === "Em estoque" ? "fill-primary-foreground" : "fill-destructive-foreground"}`}
-            size={14}
-          />
-          {label}
-        </Badge>
-      );
-    },
+    cell: ({row: {original: product}}) => (
+       <ProductStatusBadge status={product.status} />
+      ),
   },
   {
     accessorKey: "actions",
     header: "Ações",
-    cell: (row) => <ProductTableDropdownMenu product={row.row.original} />,
+    cell: ({row: {original: product}}) => <ProductTableDropdownMenu product={product} />,
   },
 ];

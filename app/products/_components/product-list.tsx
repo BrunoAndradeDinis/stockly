@@ -1,4 +1,4 @@
-import { cachedGetProducts } from "@/app/_data-access/product/get-product";
+import { cachedGetProducts } from "@/app/_data-access/product/get-products";
 
 const ProductList = async () => {
   const dataObject = await cachedGetProducts();

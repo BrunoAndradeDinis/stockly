@@ -16,9 +16,10 @@ import {
   SummaryCardTitle,
   SummaryCardValue,
 } from "./_components/summary-card";
-import { getDashboardData } from "../_data-access/dashboard/get-dashboard";
+import { getDashboard } from "../_data-access/dashboard/get-dashboard";
 import { formatCurrency } from "../_helpers/currency";
 import dynamic from "next/dynamic";
+import MostSoldProductItem from "./_components/most-sold-product-item";
 
 const RevenueChart = dynamic(() => import("./_components/revenue-chart"), {
   ssr: false,
@@ -32,9 +33,10 @@ const Home = async () => {
     totalSales,
     totalStock,
     totalLast14DaysRevenue,
-  } = await getDashboardData();
+    mostSoldProducts,
+  } = await getDashboard();
   return (
-    <div className="mx-8 my-8 flex w-full flex-col space-y-8 rounded-lg">
+    <div className="mx-8 my-8 flex flex-col space-y-8 rounded-lg">
       <Header>
         <HeaderLeft>
           <HeaderSubtitle>Visão geral</HeaderSubtitle>
@@ -80,12 +82,25 @@ const Home = async () => {
           <SummaryCardValue>{totalProducts}</SummaryCardValue>
         </SummaryCard>
       </div>
-      <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white p-6">
-        <p className="text-lg text-sm font-semibold text-slate-900">Receita </p>
-        <p className="text-sm text-slate-400">Últimos 14 dias</p>
+      <div className="grid min-h-0 grid-cols-[minmax(0,2.5fr),minmax(0,1fr)] gap-6">
+        <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white p-6">
+          <p className="text-lg text-sm font-semibold text-slate-900">Receita </p>
+          <p className="text-sm text-slate-400">Últimos 14 dias</p>
 
-        <RevenueChart data={totalLast14DaysRevenue} />
+          <RevenueChart data={totalLast14DaysRevenue} />
+        </div>
+        <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white">
+          <p className="text-lg font-semibold text-slate-900 p-6">Produtos mais vendidos</p>
+
+          <div className="overflow-y-auto space-y-7 overflow-y-auto px-6 pb-6">
+            {mostSoldProducts.map((product) => (
+              <MostSoldProductItem key={product.productId} product={product} />
+            ))}
+          </div>
+        </div>
+
       </div>
+
     </div>
   );
 };
