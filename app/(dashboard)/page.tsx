@@ -20,6 +20,10 @@ import { getDashboard } from "../_data-access/dashboard/get-dashboard";
 import { formatCurrency } from "../_helpers/currency";
 import dynamic from "next/dynamic";
 import MostSoldProductItem from "./_components/most-sold-product-item";
+import { Suspense } from "react";
+import TotalRevenueCard from "./_components/total-revenue-card";
+import { Skeleton } from "../_components/ui/skeleton";
+import { getTotalRevenue } from "../_data-access/dashboard/get-total-revenue";
 
 const RevenueChart = dynamic(() => import("./_components/revenue-chart"), {
   ssr: false,
@@ -28,13 +32,13 @@ const RevenueChart = dynamic(() => import("./_components/revenue-chart"), {
 const Home = async () => {
   const {
     todayRevenue,
-    totalRevenue,
     totalProducts,
     totalSales,
     totalStock,
     totalLast14DaysRevenue,
     mostSoldProducts,
   } = await getDashboard();
+  const totalRevenue = await getTotalRevenue();
   return (
     <div className="mx-8 my-8 flex flex-col space-y-8 rounded-lg">
       <Header>
@@ -44,19 +48,22 @@ const Home = async () => {
         </HeaderLeft>
       </Header>
       <div className="grid grid-cols-2 gap-6">
-        <SummaryCard>
-          <SummaryCardIcon>
-            <DollarSign />
-          </SummaryCardIcon>
-          <SummaryCardTitle>Receita Total </SummaryCardTitle>
-          <SummaryCardValue>{formatCurrency(totalRevenue)}</SummaryCardValue>
-        </SummaryCard>
+        <Suspense fallback={<Skeleton className="h-full w-full bg-white bg-opacity-75 rounded-xl" />}>
+          <TotalRevenueCard />
+        </Suspense>
         <SummaryCard>
           <SummaryCardIcon>
             <DollarSign />
           </SummaryCardIcon>
           <SummaryCardTitle>Receita hoje</SummaryCardTitle>
           <SummaryCardValue>{formatCurrency(todayRevenue)}</SummaryCardValue>
+        </SummaryCard>
+        <SummaryCard>
+          <SummaryCardIcon>
+            <DollarSign className="text-emerald-500"/>
+          </SummaryCardIcon>
+          <SummaryCardTitle>Receita Total </SummaryCardTitle>
+          <SummaryCardValue>{formatCurrency(totalRevenue)}</SummaryCardValue>
         </SummaryCard>
       </div>
       <div className="grid grid-cols-3 gap-6">
