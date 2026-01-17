@@ -103,7 +103,7 @@ const UpsertSheetContent = ({
       form.reset();
       setSheetIsOpen(false);
     }
-  }, [isOpen]);
+  }, [isOpen, form, setSheetIsOpen]);
   useEffect(() => {
     if (defaultSelectedProducts) {
       setSelectedProduct(defaultSelectedProducts ?? []);
@@ -197,7 +197,7 @@ const UpsertSheetContent = ({
     // }
   };
   return (
-    <SheetContent className="!max-w-[700px]">
+    <SheetContent className="!max-w-[700px] overflow-y-auto">
       <SheetHeader>
         <SheetTitle>Nova vendas</SheetTitle>
         <SheetDescription>

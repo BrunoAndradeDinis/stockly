@@ -24,7 +24,7 @@ export interface SalesDTO {
 export const getSales = async (): Promise<SalesDTO[]> => {
   const sales = await db.sale.findMany({
     include: {
-      saleProducts: {
+      products: {
         include: {
           product: true,
         },
@@ -36,19 +36,19 @@ export const getSales = async (): Promise<SalesDTO[]> => {
     (sale): SalesDTO => ({
       id: sale.id,
       date: sale.date,
-      productNames: sale.saleProducts
+      productNames: sale.products
         .map((saleProduct) => saleProduct.product.name)
         .join(" • "),
-      totalAmount: sale.saleProducts.reduce(
+      totalAmount: sale.products.reduce(
         (acc, saleProduct) =>
           acc + saleProduct.quantity * Number(saleProduct.unitPrice),
         0,
       ),
-      totalProducts: sale.saleProducts.reduce(
+      totalProducts: sale.products.reduce(
         (acc, saleProduct) => acc + saleProduct.quantity,
         0,
       ),
-      saleProducts: sale.saleProducts.map(
+      saleProducts: sale.products.map(
         (saleProduct): SaleProductDTO => ({
           id: saleProduct.id,
           name: saleProduct.product.name,

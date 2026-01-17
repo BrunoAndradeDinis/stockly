@@ -11,7 +11,7 @@ export const deleteSale = actionClient
     await db.$transaction(async (trx) => {
       const sale = await trx.sale.findUnique({
         where: { id },
-        include: { saleProducts: true },
+        include: { products: true },
       });
 
       if (!sale) return;
@@ -20,7 +20,7 @@ export const deleteSale = actionClient
           id,
         },
       });
-      for (const product of sale?.saleProducts ?? []) {
+      for (const product of sale?.products ?? []) {
         await trx.product.update({
           where: { id: product.productId },
           data: {
