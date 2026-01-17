@@ -166,6 +166,9 @@ const UpsertSheetContent = ({
         quantity: product.quantity,
       })),
     });
+    setSelectedProduct([]);
+    form.reset();
+    setSheetIsOpen(false);
 
     // try {
     //   await upsertSale({
