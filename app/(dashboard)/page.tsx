@@ -12,7 +12,7 @@ import TotalSalesCard from "./_components/total-sales-card";
 import TotalStockCard from "./_components/total-stock-card";
 import TotalProductsCard from "./_components/total-products-card";
 import Last14DaysRevenueCard from "./_components/last-14-days-revenue-card";
-import MostSoldProductsCard from "./_components/most-sold-products-card";
+import MostSoldProductsCard, { MostSoldProductsCardSkeleton } from "./_components/most-sold-products-card";
 
 const Home = async () => {
   return (
@@ -86,25 +86,8 @@ const Home = async () => {
           <Last14DaysRevenueCard />
         </Suspense>
         <Suspense fallback={
-          <Skeleton className="bg-white p-6">
-          <div className="h-6 w-56 rounded-md bg-gray-200 mb-8 mt-4"></div>
-            <div className="space-y-2 mt-8"> 
-              <div className="h-4 w-24 rounded-md bg-gray-200"></div>
-              <div className="flex justify-between">
-                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
-                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
-              </div>
-              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
-            </div>
-             <div className="space-y-2 mt-8"> 
-              <div className="h-4 w-24 rounded-md bg-gray-200"></div>
-              <div className="flex justify-between">
-                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
-                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
-              </div>
-              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
-            </div>
-          </Skeleton>}>
+          <MostSoldProductsCardSkeleton />
+        }>
           <MostSoldProductsCard />
         </Suspense>
       </div>
