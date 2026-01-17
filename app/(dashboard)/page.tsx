@@ -1,44 +1,20 @@
 import {
-  CircleDollarSign,
-  DollarSign,
-  Package,
-  ShoppingBasketIcon,
-} from "lucide-react";
-import {
   Header,
   HeaderLeft,
   HeaderSubtitle,
   HeaderTitle,
 } from "../_components/header";
-import {
-  SummaryCard,
-  SummaryCardIcon,
-  SummaryCardTitle,
-  SummaryCardValue,
-} from "./_components/summary-card";
-import { getDashboard } from "../_data-access/dashboard/get-dashboard";
-import { formatCurrency } from "../_helpers/currency";
-import dynamic from "next/dynamic";
-import MostSoldProductItem from "./_components/most-sold-product-item";
 import { Suspense } from "react";
 import TotalRevenueCard from "./_components/total-revenue-card";
 import { Skeleton } from "../_components/ui/skeleton";
-import { getTotalRevenue } from "../_data-access/dashboard/get-total-revenue";
-
-const RevenueChart = dynamic(() => import("./_components/revenue-chart"), {
-  ssr: false,
-});
+import TodayRevenueCard from "./_components/today-revenue-card";
+import TotalSalesCard from "./_components/total-sales-card";
+import TotalStockCard from "./_components/total-stock-card";
+import TotalProductsCard from "./_components/total-products-card";
+import Last14DaysRevenueCard from "./_components/last-14-days-revenue-card";
+import MostSoldProductsCard from "./_components/most-sold-products-card";
 
 const Home = async () => {
-  const {
-    todayRevenue,
-    totalProducts,
-    totalSales,
-    totalStock,
-    totalLast14DaysRevenue,
-    mostSoldProducts,
-  } = await getDashboard();
-  const totalRevenue = await getTotalRevenue();
   return (
     <div className="mx-8 my-8 flex flex-col space-y-8 rounded-lg">
       <Header>
@@ -48,66 +24,90 @@ const Home = async () => {
         </HeaderLeft>
       </Header>
       <div className="grid grid-cols-2 gap-6">
-        <Suspense fallback={<Skeleton className="h-full w-full bg-white bg-opacity-75 rounded-xl" />}>
+        <Suspense fallback={
+          <Skeleton className="bg-white p-6">
+            <div className="space-y-2">
+              <div className="h-10 w-16 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-28 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
+            </div>
+          </Skeleton>}>
           <TotalRevenueCard />
         </Suspense>
-        <SummaryCard>
-          <SummaryCardIcon>
-            <DollarSign />
-          </SummaryCardIcon>
-          <SummaryCardTitle>Receita hoje</SummaryCardTitle>
-          <SummaryCardValue>{formatCurrency(todayRevenue)}</SummaryCardValue>
-        </SummaryCard>
-        <SummaryCard>
-          <SummaryCardIcon>
-            <DollarSign className="text-emerald-500"/>
-          </SummaryCardIcon>
-          <SummaryCardTitle>Receita Total </SummaryCardTitle>
-          <SummaryCardValue>{formatCurrency(totalRevenue)}</SummaryCardValue>
-        </SummaryCard>
+        <Suspense fallback={
+         <Skeleton className="bg-white p-6">
+            <div className="space-y-2">
+              <div className="h-10 w-16 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-28 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
+            </div>
+          </Skeleton>}>
+          <TodayRevenueCard />
+        </Suspense>
       </div>
       <div className="grid grid-cols-3 gap-6">
-        <SummaryCard>
-          <SummaryCardIcon>
-            <CircleDollarSign />
-          </SummaryCardIcon>
-          <SummaryCardTitle>Vendas Totais</SummaryCardTitle>
-          <SummaryCardValue>{totalSales}</SummaryCardValue>
-        </SummaryCard>
-        <SummaryCard>
-          <SummaryCardIcon>
-            <Package />
-          </SummaryCardIcon>
-          <SummaryCardTitle>Total em estoque</SummaryCardTitle>
-          <SummaryCardValue>{totalStock}</SummaryCardValue>
-        </SummaryCard>
-        <SummaryCard>
-          <SummaryCardIcon>
-            <ShoppingBasketIcon />
-          </SummaryCardIcon>
-          <SummaryCardTitle>Produtos</SummaryCardTitle>
-          <SummaryCardValue>{totalProducts}</SummaryCardValue>
-        </SummaryCard>
+        <Suspense fallback={<Skeleton className="bg-white p-6">
+            <div className="space-y-2">
+              <div className="h-10 w-16 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-28 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
+            </div>
+          </Skeleton>}>
+          <TotalSalesCard />
+        </Suspense>
+        <Suspense fallback={<Skeleton className="bg-white p-6">
+            <div className="space-y-2">
+              <div className="h-10 w-16 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-28 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
+            </div>
+          </Skeleton>}>
+          <TotalStockCard />
+        </Suspense>
+        <Suspense fallback={<Skeleton className="bg-white p-6">
+            <div className="space-y-2">
+              <div className="h-10 w-16 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-28 rounded-md bg-gray-200"></div>
+              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
+            </div>
+          </Skeleton>}>
+          <TotalProductsCard />
+        </Suspense>
       </div>
       <div className="grid min-h-0 grid-cols-[minmax(0,2.5fr),minmax(0,1fr)] gap-6">
-        <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white p-6">
-          <p className="text-lg text-sm font-semibold text-slate-900">Receita </p>
-          <p className="text-sm text-slate-400">Últimos 14 dias</p>
-
-          <RevenueChart data={totalLast14DaysRevenue} />
-        </div>
-        <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white">
-          <p className="text-lg font-semibold text-slate-900 p-6">Produtos mais vendidos</p>
-
-          <div className="overflow-y-auto space-y-7 overflow-y-auto px-6 pb-6">
-            {mostSoldProducts.map((product) => (
-              <MostSoldProductItem key={product.productId} product={product} />
-            ))}
-          </div>
-        </div>
-
+        <Suspense fallback={
+          <Skeleton className="bg-white p-6">
+           <div className="space-y-2">
+            <div className="h-5 w-[86.26px] rounded-md bg-gray-200"></div>
+            <div className="h-4 w-48 rounded-md bg-gray-200"></div>
+           </div>
+          </Skeleton>
+        }>
+          <Last14DaysRevenueCard />
+        </Suspense>
+        <Suspense fallback={
+          <Skeleton className="bg-white p-6">
+          <div className="h-6 w-56 rounded-md bg-gray-200 mb-8 mt-4"></div>
+            <div className="space-y-2 mt-8"> 
+              <div className="h-4 w-24 rounded-md bg-gray-200"></div>
+              <div className="flex justify-between">
+                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
+                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
+              </div>
+              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
+            </div>
+             <div className="space-y-2 mt-8"> 
+              <div className="h-4 w-24 rounded-md bg-gray-200"></div>
+              <div className="flex justify-between">
+                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
+                <div className="h-4 w-20 rounded-md bg-gray-200"></div>
+              </div>
+              <div className="h-4 w-36 rounded-md bg-gray-200"></div>
+            </div>
+          </Skeleton>}>
+          <MostSoldProductsCard />
+        </Suspense>
       </div>
-
     </div>
   );
 };
