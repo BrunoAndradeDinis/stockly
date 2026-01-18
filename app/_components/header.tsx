@@ -18,6 +18,8 @@ export const HeaderRight = ({ children }: { children: React.ReactNode }) => {
 
 export const Header = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex w-full items-center justify-between">{children}</div>
+    <div className="flex w-full flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      {children}
+    </div>
   );
 };

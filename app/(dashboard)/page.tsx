@@ -16,14 +16,14 @@ import MostSoldProductsCard, { MostSoldProductsCardSkeleton } from "./_component
 
 const Home = async () => {
   return (
-    <div className="mx-8 my-8 flex flex-col space-y-8 rounded-lg">
+    <div className="m-4 flex flex-col space-y-8 rounded-lg md:m-8">
       <Header>
         <HeaderLeft>
           <HeaderSubtitle>Visão geral</HeaderSubtitle>
           <HeaderTitle>Dashboard</HeaderTitle>
         </HeaderLeft>
       </Header>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Suspense fallback={
           <Skeleton className="bg-white p-6">
             <div className="space-y-2">
@@ -35,7 +35,7 @@ const Home = async () => {
           <TotalRevenueCard />
         </Suspense>
         <Suspense fallback={
-         <Skeleton className="bg-white p-6">
+          <Skeleton className="bg-white p-6">
             <div className="space-y-2">
               <div className="h-10 w-16 rounded-md bg-gray-200"></div>
               <div className="h-4 w-28 rounded-md bg-gray-200"></div>
@@ -45,7 +45,7 @@ const Home = async () => {
           <TodayRevenueCard />
         </Suspense>
       </div>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Suspense fallback={<Skeleton className="bg-white p-6">
             <div className="space-y-2">
               <div className="h-10 w-16 rounded-md bg-gray-200"></div>
@@ -74,7 +74,7 @@ const Home = async () => {
           <TotalProductsCard />
         </Suspense>
       </div>
-      <div className="grid min-h-0 grid-cols-[minmax(0,2.5fr),minmax(0,1fr)] gap-6">
+      <div className="grid min-h-0 grid-cols-1 gap-6 md:grid-cols-[minmax(0,2.5fr),minmax(0,1fr)]">
         <Suspense fallback={
           <Skeleton className="bg-white p-6">
            <div className="space-y-2">
